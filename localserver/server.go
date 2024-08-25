@@ -58,6 +58,7 @@ func (s Server) Start() {
 	router.HandleFunc("/signup", signupHandler).Methods("GET")
 	router.HandleFunc("/login", Signin).Methods("POST")
 	router.HandleFunc("/signup", Signup).Methods("POST")
+	router.HandleFunc("/profile", Profile).Methods("GET")
 
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./build"))))
 

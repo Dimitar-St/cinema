@@ -73,6 +73,38 @@ h1, h2, h3, h4, h5, h6 {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
 $(document).ready(function() {
+  $('#singinForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get the values from the input fields
+        var username = $('#username').val();
+        var password = $('#password').val();
+    
+        console.log(username);
+    console.log(password);
+
+        $.ajax({
+            url: 'http://localhost:8000/login',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "username": username,
+                "password": password
+            }),
+            success: function(response) {
+                // Handle success - this can be modified according to your needs
+                alert('Signin successful!');
+                console.log(response);
+            },
+            error: function(error) {
+                // Handle error - this can be modified according to your needs
+                alert('Signin failed.');
+                console.log(error);
+            }
+        });
+
+       
+    });
     $('#signupForm').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
@@ -83,8 +115,6 @@ $(document).ready(function() {
         console.log(username);
     console.log(password);
 
-
-        // Perform the AJAX POST request
         $.ajax({
             url: 'http://localhost:8000/signup',
             type: 'POST',
@@ -96,6 +126,7 @@ $(document).ready(function() {
             success: function(response) {
                 // Handle success - this can be modified according to your needs
                 alert('Signup successful!');
+                window.location.href = "/login"
                 console.log(response);
             },
             error: function(error) {

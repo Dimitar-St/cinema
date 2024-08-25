@@ -1,16 +1,21 @@
 module cinema
 
-go 1.21.4
+go 1.23
+
+toolchain go1.23.0
 
 require (
 	github.com/gorilla/mux v1.8.1
-	github.com/rs/cors v1.11.0
+	github.com/gorilla/sessions v1.4.0
 	golang.org/x/crypto v0.26.0
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.11
 )
 
-require github.com/felixge/httpsnoop v1.0.3 // indirect
+require (
+	github.com/felixge/httpsnoop v1.0.3 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
+)
 
 require (
 	github.com/gorilla/handlers v1.5.2
