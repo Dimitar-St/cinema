@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"text/template"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/rs/cors"
 )
 
 type FileHandler struct {
@@ -58,9 +58,6 @@ func (s Server) Start() {
 	router.HandleFunc("/signup", signupHandler).Methods("GET")
 	router.HandleFunc("/login", Signin).Methods("POST")
 	router.HandleFunc("/signup", Signup).Methods("POST")
-	router.Headers("Access-Control-Allow-Origin", "*")
-	router.Headers("Access-Control-Allow-Methods", "*")
-	router.Headers("Access-Control-Allow-Headers", "Content-Type")
 
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./build"))))
 
@@ -71,14 +68,18 @@ func (s Server) Start() {
 	// 	ReadTimeout:  15 * time.Second,
 	// }
 
-	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowCredentials: true,
-	})
+	// c := cors.New(cors.Options{
+	// 	AllowedOrigins:   []string{"*"},
+	// 	AllowCredentials: true,
+	// })
 
-	handler := c.Handler(router)
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 
-	log.Fatal(http.ListenAndServe(":8000", handler))
+	// start server listen
+
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(originsOk, headersOk, methodsOk)(router)))
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {

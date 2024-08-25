@@ -81,18 +81,18 @@ $(document).ready(function() {
         var password = $('#password').val();
     
         console.log(username);
-        console.log(password);
+    console.log(password);
 
 
         // Perform the AJAX POST request
         $.ajax({
-            url: 'localhost:8000/signup',
+            url: 'http://localhost:8000/signup',
             type: 'POST',
             contentType: 'application/json',
-            data: {
-                username: username,
-                password: password
-            },
+            data: JSON.stringify({
+                "username": username,
+                "password": password
+            }),
             success: function(response) {
                 // Handle success - this can be modified according to your needs
                 alert('Signup successful!');
