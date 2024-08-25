@@ -6,10 +6,11 @@ import (
 )
 
 func main() {
+	println("It compiles!")
 	db.InitDB()
+	println("It compiles!")
 
 	srv := localserver.Server{}
 	srv.Start()
 
-	println("It compiles!")
 }

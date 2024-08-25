@@ -11,6 +11,9 @@ import (
 )
 
 func Signup(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	creds := &models.User{}
 	err := json.NewDecoder(r.Body).Decode(creds)
 	if err != nil {

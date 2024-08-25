@@ -4,6 +4,7 @@ go 1.21.4
 
 require (
 	github.com/gorilla/mux v1.8.1
+	github.com/rs/cors v1.11.0
 	golang.org/x/crypto v0.26.0
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.11

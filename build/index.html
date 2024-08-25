@@ -70,36 +70,42 @@ h1, h2, h3, h4, h5, h6 {
 {{ content }}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
-        $(document).ready(function() {
-            $('#signupForm').on('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
+$(document).ready(function() {
+    $('#signupForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
-                // Get the values from the input fields
-                var username = $('#username').val();
-                var password = $('#password').val();
+        // Get the values from the input fields
+        var username = $('#username').val();
+        var password = $('#password').val();
+    
+        console.log(username);
+        console.log(password);
 
-                // Perform the AJAX POST request
-                $.ajax({
-                    url: 'localhost:8000/signup',
-                    type: 'POST',
-                    data: {
-                        username: username,
-                        password: password
-                    },
-                    success: function(response) {
-                        // Handle success - this can be modified according to your needs
-                        alert('Signup successful!');
-                        console.log(response);
-                    },
-                    error: function(error) {
-                        // Handle error - this can be modified according to your needs
-                        alert('Signup failed.');
-                        console.log(error);
-                    }
-                });
-            });
+
+        // Perform the AJAX POST request
+        $.ajax({
+            url: 'localhost:8000/signup',
+            type: 'POST',
+            contentType: 'application/json',
+            data: {
+                username: username,
+                password: password
+            },
+            success: function(response) {
+                // Handle success - this can be modified according to your needs
+                alert('Signup successful!');
+                console.log(response);
+            },
+            error: function(error) {
+                // Handle error - this can be modified according to your needs
+                alert('Signup failed.');
+                console.log(error);
+            }
         });
+    });
+});
     </script>
 </body>
 </html>
