@@ -51,7 +51,10 @@ func (s Server) Start() {
 
 	router.HandleFunc("/", fileHandler.ServeHTTP)
 	router.HandleFunc("/home", homeHandler)
-	router.HandleFunc("/login", loginHandler)
+	router.HandleFunc("/login", loginHandler).Methods("GET")
+	router.HandleFunc("/signup", signupHandler).Methods("GET")
+	router.HandleFunc("/login", Signin).Methods("POST")
+	router.HandleFunc("/signup", Signup).Methods("POST")
 
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./build"))))
 
@@ -70,6 +73,15 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Login Form")
 
 	pageToLoad, _ := os.ReadFile("./build/login.html")
+
+	render(w, r, parseTemplate(string(pageToLoad)))
+}
+
+func signupHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	log.Println("Login Form")
+
+	pageToLoad, _ := os.ReadFile("./build/signup.html")
 
 	render(w, r, parseTemplate(string(pageToLoad)))
 }

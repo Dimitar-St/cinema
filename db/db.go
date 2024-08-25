@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var DB gorm.DB
+
 func InitDB() {
 	db, err := gorm.Open(postgres.New(postgres.Config{
 		DSN:                  "host=localhost user=postgres password=12345 dbname=postgres port=5432",
@@ -19,4 +21,6 @@ func InitDB() {
 
 	db.AutoMigrate(&models.Movie{})
 	db.AutoMigrate(&models.User{})
+
+	DB = *db
 }

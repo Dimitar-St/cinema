@@ -1,6 +1,6 @@
 package models
 
 type User struct {
-	Name     string
-	Password string
+	Password string `json:"password", gorm:"password"`
+	Username string `json:"username", gorm:"username"`
 }
